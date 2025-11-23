@@ -84,31 +84,54 @@ El frontend estará corriendo en: http://localhost:5173
 ```
 .
 ├── backend/
-│   ├── main.py              # Punto de entrada FastAPI
-│   ├── database.py          # Configuración SQLAlchemy
-│   ├── models.py            # Modelos de base de datos
-│   ├── schemas.py           # Schemas Pydantic
-│   ├── crud.py              # Operaciones CRUD
-│   ├── gemini_service.py    # Integración con Gemini AI
-│   ├── requirements.txt     # Dependencias Python
-│   └── .env                 # Variables de entorno (crear)
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py                 # Punto de entrada FastAPI, configuración CORS
+│   │   ├── models.py               # Modelos internos de datos
+│   │   ├── schemas.py              # Esquemas Pydantic para validación
+│   │   │
+│   │   ├── routes/
+│   │   │   ├── __init__.py
+│   │   │   └── invoices.py         # Endpoints: POST /invoices/upload, GET /invoices, etc.
+│   │   │
+│   │   ├── services/
+│   │   │   ├── __init__.py
+│   │   │   ├── ocr.py              # Extracción de texto (pdfplumber + Tesseract OCR)
+│   │   │   ├── extractor.py        # Extracción de datos con regex (consumo, tarifa, total, etc.)
+│   │   │   └── validator.py        # Validación de coherencia contable
+│   │   │
+│   │   └── storage/
+│   │       ├── __init__.py
+│   │       └── json_db.py          # CRUD thread-safe sobre JSON
+│   │
+│   ├── data/
+│   │   └── invoices.json           # Base de datos JSON
+│   │
+│   ├── requirements.txt            # Dependencias del proyecto
+│   ├── .env                        # Variables de entorno (crear)
+│   ├── .gitignore
+│   └── venv/                       # Entorno virtual (no subir a Git)
 │
 └── frontend/
     ├── src/
     │   ├── pages/
-    │   │   ├── Home.tsx           # Página principal (upload)
-    │   │   ├── InvoiceList.tsx    # Lista de facturas
-    │   │   └── InvoiceDetail.tsx  # Detalle de factura
+    │   │   ├── Home.tsx                 # Página principal (upload)
+    │   │   ├── InvoiceList.tsx          # Lista de facturas
+    │   │   └── InvoiceDetail.tsx        # Detalle de factura
     │   ├── components/
-    │   │   ├── FileUploader.tsx   # Componente de carga
-    │   │   ├── InvoiceCard.tsx    # Card de factura
-    │   │   └── ValidationBadge.tsx # Badge de validación
+    │   │   ├── FileUploader.tsx         # Componente de carga
+    │   │   ├── InvoiceCard.tsx          # Card de factura
+    │   │   └── ValidationBadge.tsx      # Badge de validación
     │   ├── services/
-    │   │   └── api.ts             # Cliente API
-    │   ├── App.tsx                # Router principal
-    │   └── index.css              # Estilos globales
-    ├── package.json
-    └── .env                       # Variables de entorno (crear)
+    │   │   └── api.ts                   # Cliente API + utilidades
+    │   ├── App.tsx                      # Router principal
+    │   ├── main.tsx                     # Entry point
+    │   └── index.css                    # Estilos globales + Tailwind
+    ├── public/                          # Assets estáticos
+    ├── package.json                     # Dependencias y scripts
+    ├── vite.config.ts                   # Configuración Vite
+    ├── tailwind.config.js               # Configuración Tailwind
+    └── .env 
 ```
 
 
