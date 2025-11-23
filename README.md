@@ -43,12 +43,14 @@ Sistema completo para el procesamiento automático de facturas eléctricas utili
 git clone https://github.com/tu-usuario/tu-repo.git
 cd tu-repo
 
-### Crear entorno virtual:
+
+## Crear entorno virtual:
 python -m venv venv
-# Windows
+### Windows
 venv\Scripts\activate
-# Linux/Mac
+### Linux/Mac
 source venv/bin/activate
+
 
 ### Instalar dependencias:
 pip install -r requirements.txt
